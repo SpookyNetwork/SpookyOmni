@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  --color-spooky-bg: #000B1A;
+  --color-spooky-surface: #001C3D; 
+  --color-spooky-accent: #00F3FF;
+  --color-spooky-accent-muted: rgba(0, 243, 255, 0.2);
+  --color-spooky-sonar: rgba(0, 34, 68, 0.4);
+  --color-spooky-glass: rgba(1, 4, 16, 0.7);
+  --color-spooky-glass-border: rgba(0, 243, 255, 0.1);
+  --color-spooky-danger: #ff2d55;
+  --color-spooky-warning: #ffcc00;
+}
+
+@layer base {
+  body {
+    @apply bg-spooky-bg text-gray-200 antialiased h-screen overflow-hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at center, #001C3D 0%, #000B1A 100%);
+  }
+}
+
+@layer utilities {
+  .cyber-glass {
+    @apply bg-spooky-glass backdrop-blur-2xl border border-spooky-glass-border;
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 243, 255, 0.02);
+  }
+  
+  .spatial-depth {
+    transform: perspective(1000px) translateZ(12px) rotateX(1deg);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .sonar-pulse-dynamic {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .sonar-pulse-dynamic::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vw;
+    height: 200vw;
+    background: radial-gradient(circle, var(--color-spooky-accent) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: var(--sonar-intensity, 0.2);
+    pointer-events: none;
+  }
+
+  .redline-glow {
+    box-shadow: 0 0 40px var(--color-spooky-danger);
+    border-color: var(--color-spooky-danger) !important;
+  }
+
+  .cyber-glow {
+    filter: drop-shadow(0 0 10px var(--color-spooky-accent));
+  }
+
+  .redline-indicator {
+    background: linear-gradient(90deg, #ff2d55 0%, #ffcc00 100%);
+    animation: jitter 0.1s infinite;
+  }
+
+  @keyframes jitter {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-1px); }
+    75% { transform: translateX(1px); }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-200%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .status-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ============================================
+     PILLAR 4: OBSIDIAN-GLOW SCARCITY SYSTEM
+     ============================================ */
+
+  .obsidian-glow {
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1000 50%, #0A0A0A 100%);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(0,0,0,0.8);
+    animation: obsidian-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes obsidian-shimmer {
+    0%, 100% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 0 30px rgba(212, 175, 55, 0.15); }
+    50% { border-color: rgba(212, 175, 55, 0.8); box-shadow: 0 0 50px rgba(212, 175, 55, 0.3); }
+  }
+
+  .signature-agent {
+    position: relative;
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    background: linear-gradient(135deg, #050505 0%, #0D0800 100%);
+    overflow: hidden;
+  }
+
+  .signature-agent::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(212,175,55,0.1), transparent 30%);
+    animation: signature-rotate 6s linear infinite;
+  }
+
+  @keyframes signature-rotate {
+    100% { transform: rotate(360deg); }
+  }
+
+  .tier-badge {
+    @apply text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded-full;
+  }
+
+  .tier-badge-starter {
+    @apply bg-gray-800 text-gray-400 border border-gray-700;
+  }
+
+  .tier-badge-pro {
+    @apply bg-blue-950 text-blue-400 border border-blue-800;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+  }
+
+  .tier-badge-super {
+    @apply bg-cyan-950 text-cyan-300 border border-cyan-700;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.25);
+  }
+
+  .tier-badge-ultra {
+    background: linear-gradient(135deg, #1A1000, #0A0500);
+    color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    animation: obsidian-shimmer 3s ease-in-out infinite;
+  }
+
+  .velocity-gauge {
+    background: linear-gradient(90deg, #00F3FF 0%, #00FF88 50%, #FFD700 100%);
+    border-radius: 4px;
+    height: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .agent-dot-online {
+    @apply h-2 w-2 rounded-full bg-green-500;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  }
+
+  .agent-dot-rented {
+    @apply h-2 w-2 rounded-full bg-yellow-500;
+    box-shadow: 0 0 6px rgba(234, 179, 8, 0.6);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .agent-dot-offline {
+    @apply h-2 w-2 rounded-full bg-gray-600;
+  }
+}

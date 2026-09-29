@@ -1,0 +1,17 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "spooky-corals-fs",
+  "description": "Strict boundary capability for SpookyCorals dashboard access",
+  "windows": ["main"],
+  "permissions": [
+    "fs:default",
+    {
+      "identifier": "fs:allow-read",
+      "allow": [{ "path": "$DOCUMENT/SpookyCorals/**" }]
+    },
+    {
+      "identifier": "fs:allow-write",
+      "allow": [{ "path": "$DOCUMENT/SpookyCorals/**" }]
+    }
+  ]
+}
