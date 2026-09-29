@@ -1,0 +1,8 @@
+{
+  "name": "@spooky/spooky-omni",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sovereign operator cockpit built with Tauri v2 + Monaco editor. Extraction target: SpookySystem/apps/omni_client.",
+  "license": "MIT",
+  "_scaffold": true
+}
