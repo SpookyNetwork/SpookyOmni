@@ -10,8 +10,6 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@spooky/sovereign-sdk": "workspace:*",
-    "@spooky/ui": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
     "@tailwindcss/vite": "^4.2.2",
     "@tauri-apps/api": "^2",

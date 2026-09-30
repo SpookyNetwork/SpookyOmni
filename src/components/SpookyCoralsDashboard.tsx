@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
-import { BiolumeLayer, BubbleCursor, CinematicPanel, GlowStream } from '@spooky/ui';
+import { BiolumeLayer, BubbleCursor, CinematicPanel, GlowStream } from './cinematic';
 
 interface MetricsData {
   sales_today?: number;

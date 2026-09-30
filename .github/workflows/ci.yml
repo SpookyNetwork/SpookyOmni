@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-test:
+    name: Omni Standalone Build & Test (Windows)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build Frontend (Vite + TypeScript)
+        run: npm run build
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo registry and target
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target/
+          key: ${{ runner.os }}-cargo-omni-${{ hashFiles('src-tauri/Cargo.lock') }}
+
+      - name: Cargo Check Tauri Backend
+        run: cargo check --manifest-path src-tauri/Cargo.toml
+
+      - name: Cargo Test Tauri Backend
+        run: cargo test --manifest-path src-tauri/Cargo.toml
